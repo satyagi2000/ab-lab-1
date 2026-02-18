@@ -19,15 +19,18 @@ def score_deal(amount: float, risk: int, customer_type: str) -> float:
     return (base * multiplier) - penalty 
 
 def decision(score: float) -> str: 
-    if score >= 8: 
-        return "APPROVE" 
-    if score >= 4: 
-        return "REVIEW" 
-    return "REJECT" 
+    thresholds = [
+        (8, "APPROVE"),
+        (4, "REVIEW"),
+    ]
+    for threshold, label in thresholds:
+        if score >= threshold:
+            return label
+    return "REJECT"
 
 def main() -> None: 
     amount = 10000.0 
-    risk = 35 
+    risk = 35
     customer_type = "smb" 
 
     s = score_deal(amount, risk, customer_type) 
